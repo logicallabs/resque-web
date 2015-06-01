@@ -66,14 +66,8 @@ module ResqueWeb
       content_tag :p, text, :class => 'poll'
     end
 
-    protected
-
-    def route_to_app
-      if Rails.env.development?
-        'http://localhost:3000/admin'
-      else
-        'https://pnd.logicallabs.com/admin'
-      end
+    def route_to_app(*args)
+      "/#{args.to_s.parameterize('/')}"
     end
   end
 end
