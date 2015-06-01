@@ -65,5 +65,15 @@ module ResqueWeb
       end
       content_tag :p, text, :class => 'poll'
     end
+
+    protected
+
+    def route_to_app
+      if Rails.env.development?
+        'http://localhost:3000/admin'
+      else
+        'https://pnd.logicallabs.com/admin'
+      end
+    end
   end
 end
