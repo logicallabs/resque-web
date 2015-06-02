@@ -6,10 +6,12 @@
       <th>Where</th>
       <th>Queue</th>
       <th>Processing</th>
+      <th>Job</th>
+      <th>Action</th>
     </tr>
     <% if worker_jobs.empty? %>
     <tr>
-      <td colspan="4" class="no-data">Nothing is happening right now...</td>
+      <td colspan="5" class="no-data">Nothing is happening right now...</td>
     </tr>
     <% end %>
 
@@ -28,6 +30,11 @@
           <% else %>
             <span class="waiting">Waiting for a job...</span>
           <% end %>
+        </td>
+        <td><%= job['payload']['args'] %></td>
+        <td>
+          <%= link_to 'kill', overview_path(job: job, pid: pid, worker_id: worker.id), method: :delete,
+              data: { confirm: 'Are you sure you want to kill the worker?'} %>
         </td>
       </tr>
     <% end %>
