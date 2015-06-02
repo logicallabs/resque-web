@@ -7,7 +7,7 @@
       <th>Queue</th>
       <th>Processing</th>
       <th>Job</th>
-      <th>action</th>
+      <th>Action</th>
     </tr>
     <% if worker_jobs.empty? %>
     <tr>
@@ -33,7 +33,7 @@
         </td>
         <td><%= job['payload']['args'] %></td>
         <td>
-          <%= link_to 'kill', overview_path(job: job, pid: pid), method: :delete,
+          <%= link_to 'kill', overview_path(job: job, pid: pid, worker_id: worker.id), method: :delete,
               data: { confirm: 'Are you sure you want to kill the worker?'} %>
         </td>
       </tr>

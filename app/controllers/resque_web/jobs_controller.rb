@@ -5,7 +5,8 @@ module ResqueWeb
               params['class'],
               signaturize_params].flatten)
 
-      redirect_to queue_path(params[:id]), notice: "Job removed from queue."
+      flash[:success] = "Job removed from queue."
+      redirect_to queue_path(params[:id])
     end
 
     private

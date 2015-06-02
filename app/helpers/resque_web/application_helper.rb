@@ -3,6 +3,21 @@ module ResqueWeb
 
     PER_PAGE = 20
 
+    def bootstrap_class_for(flash_type)
+      case flash_type
+        when :success
+          "alert-success"   # Green
+        when :error
+          "alert-danger"    # Red
+        when :alert
+          "alert-warning"   # Yellow
+        when :notice
+          "alert-info"      # Blue
+        else
+          flash_type.to_s
+      end
+    end
+
     def tabs
       t = {'overview' => ResqueWeb::Engine.app.url_helpers.overview_path,
        'working'  => ResqueWeb::Engine.app.url_helpers.working_index_path,
