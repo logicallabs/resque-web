@@ -7,11 +7,12 @@ ResqueWeb::Engine.routes.draw do
     mount p::Engine => p.engine_path
   end
 
-  resource  :overview,  :only => [:show], :controller => :overview
+  resources :jobs,      :only => :destroy
+  resource  :overview,  :only => [:show, :destroy], :controller => :overview
   resources :working,   :only => [:index]
   resources :queues,    :only => [:index,:show,:destroy], :constraints => {:id => id_pattern} do
     member do
-      put 'clear' 
+      put 'clear'
     end
   end
   resources :workers,   :only => [:index,:show], :constraints => {:id => id_pattern}

@@ -1,30 +1,37 @@
-  <h1>Pending jobs on <span class='hl'><%= params[:id] %></span></h1>
+<h1>Pending jobs on <span class='hl'><%= params[:id] %></span></h1>
 
-  <%= form_tag(clear_queue_path(params[:id]), :method => :put) do %>
-    <%= submit_tag "Clear Pending Jobs", :class => 'btn btn-danger', :data => { :confirm => "Are you absolutely sure? This cannot be undone." } %>
-  <% end %>
+<%= form_tag(clear_queue_path(params[:id]), :method => :put) do %>
+  <%= submit_tag "Clear Pending Jobs", :class => 'btn btn-danger', :data => { :confirm => "Are you absolutely sure? This cannot be undone." } %>
+<% end %>
 
-  <%= form_tag(queue_path(params[:id]), :method => :delete, :class => 'remove-queue') do %>
-    <%= submit_tag "Remove Queue", :class => 'btn btn-danger', :data => { :confirm => "Are you absolutely sure? This cannot be undone." } %>
-  <% end %>
+<%= form_tag(queue_path(params[:id]), :method => :delete, :class => 'remove-queue') do %>
+  <%= submit_tag "Remove Queue", :class => 'btn btn-danger', :data => { :confirm => "Are you absolutely sure? This cannot be undone." } %>
+<% end %>
 
-  <p class="sub">Showing <%= queue_start_at %> to <%= queue_end_at %> of <b><%= queue_size %></b> jobs</p>
-  <table class="table table-bordered jobs">
-    <tr>
-      <th>Class</th>
-      <th>Args</th>
-    </tr>
-    <% queue_jobs.each do |job| %>
-    <tr>
+<p class="sub">Showing <%= queue_start_at %> to <%= queue_end_at %> of <b><%= queue_size %></b> jobs</p>
+<table class="table table-bordered jobs">
+  <tr>
+    <th>Class</th>
+    <th>Args</th>
+    <th>action</th>
+  </tr>
+  <% queue_jobs.each do |job| %>
+    <tr class="job">
       <td class='class'><%= job['class'] %></td>
       <td class='args'><%=h job['args'].inspect %></td>
+      <td>
+        <%= link_to 'kill', job_path(job), method: :delete,
+        data: {
+          confirm: 'Warning: This will permanently remove the job from queue.  Are you sure?'
+        } %>
+      </td>
     </tr>
-    <% end %>
-    <% if queue_jobs.empty? %>
+  <% end %>
+  <% if queue_jobs.empty? %>
     <tr>
       <td class='no-data' colspan='2'>There are no pending jobs in this queue</td>
     </tr>
-    <% end %>
-  </table>
+  <% end %>
+</table>
 
-  <%= pagination :start => queue_start_at, :total => queue_size %>
+<%= pagination :start => queue_start_at, :total => queue_size %>

@@ -43,6 +43,13 @@
 </ul>
 <% end %>
 
+<% flash.each do |key, value| %>
+  <div class="alert alert-#{key} alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong><%= value %></strong>
+  </div>
+<% end %>
+
 <div class="container" id="main">
   <%= yield %>
 </div>
