@@ -27,6 +27,9 @@
           <% tabs.each do |tab_name,path| %>
             <%= tab tab_name,path %>
           <% end %>
+          <li>
+            <%= link_to 'Admin', route_to_app('admin') %>
+          </li>
         </ul>
       </div>
     </div>

@@ -65,5 +65,9 @@ module ResqueWeb
       end
       content_tag :p, text, :class => 'poll'
     end
+
+    def route_to_app(*args)
+      "/#{args.to_s.parameterize('/')}"
+    end
   end
 end
